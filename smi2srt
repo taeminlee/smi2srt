@@ -45,7 +45,7 @@ def parse(smi): # smi parsing algorithm written in PYSAMI by g6123 (https://gith
         return ''
 
     def parse_p(item):
-        lang = search(item, '<p(.+)class=([a-z]+)').group(2)
+        lang = search(item, '<p(.+)class=([\'"]?[a-z]+)').group(2)
         content = item[search(item, '<p[^>]+>').end():]
         content = content.replace('\r', '')
         content = content.replace('\n', '')
@@ -90,7 +90,7 @@ def convert(data, lang): # written by ncianeo
     for i in range(len(data)-1):
         try:
             if i>0:
-                if data[i][0]<data[i-1][0]:
+                if int(data[i][0])<int(data[i-1][0]):
                     continue
             if data[i][1][lang]!='&nbsp;':
                 srt+=str(sub_nb)+'\n'
